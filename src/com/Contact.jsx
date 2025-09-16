@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { Toaster, toast } from "sonner";
 import { Mail, Github, Linkedin, Twitter, Send } from "lucide-react";
+import { useForm, ValidationError } from "@formspree/react";
+import axios from "axios";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,12 +48,60 @@ const contact = () => {
     e.preventDefault();
     if (!valiDate()) return;
     setIsFormSubmitted(true);
+
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    };
+
+    axios
+      .post("https://formspree.io/f/xldwvqyv", data)
+      .then((response) => {
+        console.log("submitted", response.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
     await new Promise((reslove) => setTimeout(reslove, 2000));
     toast.success("Thanks for contacting me! I will get back to you soon!");
     console.log("Form Submitted", formData);
     setFormData({ name: "", email: "", message: "" });
     setIsFormSubmitted(false);
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!valiDate()) return;
+
+  //   setIsFormSubmitted(true);
+
+  //   try {
+  //     // Send form data to Formspree
+  //     const response = await fetch("https://formspree.io/f/xldwvqyv", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (response.ok) {
+  //       toast.success("Thanks for contacting me! I will get back to you soon!");
+  //       console.log("Form Submitted", formData);
+  //       setFormData({ name: "", email: "", message: "" });
+  //     } else {
+  //       toast.error("Failed to send message. Please try again.");
+  //     }
+  //   } catch (error) {
+  //     toast.error("An error occurred. Please try again.");
+  //     console.error("Formspree error:", error);
+  //   }
+
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
+  //   setIsFormSubmitted(false);
+  // };
 
   const inputHandle = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -87,8 +137,6 @@ const contact = () => {
             {/* Form Sction */}
             <div>
               <form
-                action="https://formspree.io/f/xldwvqyv"
-                method="POST"
                 onSubmit={handleSubmit}
                 ref={formRef}
                 className=" space-y-6"
@@ -231,13 +279,13 @@ const contact = () => {
                   Let's work together to bring your ideas to life.
                 </p>
 
-             <a
-                href="/NehalResume.pdf"
-                download
-                className="bg-white text-blue-500 px-6 py-3 rounded-full font-medium inline-block hover:bg-gray-50 transition mt-5"
-              >
-                Download Resume
-              </a>
+                <a
+                  href="/NehalResume.pdf"
+                  download
+                  className="bg-white text-blue-500 px-6 py-3 rounded-full font-medium inline-block hover:bg-gray-50 transition mt-5"
+                >
+                  Download Resume
+                </a>
               </div>
             </div>
           </div>

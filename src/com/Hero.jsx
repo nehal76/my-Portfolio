@@ -27,6 +27,63 @@ export const Hero = () => {
 
   const clothes = ["Jeans", "T-shirts", "Shirts", "Night Suit"];
 
+  const typeText = (text, onComplete) => {
+    if(!capsuleRef.current) return;
+      const tl = gsap.timeline();
+      capsuleRef.current.textContent = "";
+
+      text.split("").forEach((char) => {
+        tl.to(
+          {},
+          {
+            duration: 0.05,
+            onComplete: () => {
+              if(capsuleRef.current){
+                capsuleRef.current.textContent += char;
+              }
+            },
+          }
+        );
+      });
+
+      tl.to({}, { duration: 1, onComplete });
+    };
+
+    const deleteText = (onComplete) => {
+       if(!capsuleRef.current) return;
+      const tl = gsap.timeline();
+      const length = capsuleRef.current.textContent.length;
+
+      for (let i = length; i > 0; i--) {
+        tl.to(
+          {},
+          {
+            duration: 0.03,
+            onComplete: () => {
+              capsuleRef.current.textContent =
+                capsuleRef.current.textContent.slice(0, -1);
+            },
+          }
+        );
+      }
+
+      tl.to({}, { duration: 0.5, onComplete });
+    };
+
+    const animateTypewriter = () => {
+      typeText(clothes[currentRole], () => {
+        deleteText(() => {
+          setCurrentRole((prev) => (prev + 1) % clothes.length);
+          animateTypewriter();
+        });
+      });
+    };
+
+    useEffect(()=>{
+      animateTypewriter();
+    },[])
+
+
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
 
@@ -51,22 +108,26 @@ export const Hero = () => {
         "-=0.8"
       );
 
+
+
+    
     // Role change interval
-    const rolInterval = setInterval(() => {
-      gsap.to(capsuleRef.current, {
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.3,
-        onComplete: () => {
-          setCurrentRole((prev) => (prev + 1) % clothes.length);
-          gsap.to(capsuleRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.3,
-          });
-        },
-      });
-    }, 3000);
+
+    // const rolInterval = setInterval(() => {
+    //   gsap.to(capsuleRef.current, {
+    //     opacity: 0,
+    //     scale: 0.9,
+    //     duration: 0.3,
+    //     onComplete: () => {
+    //       setCurrentRole((prev) => (prev + 1) % clothes.length);
+    //       gsap.to(capsuleRef.current, {
+    //         opacity: 1,
+    //         scale: 1,
+    //         duration: 0.3,
+    //       });
+    //     },
+    //   });
+    // }, 3000);
 
     // Continuous rotation of the blob (Sun)
     gsap.to(blobRef.current, {
@@ -96,7 +157,7 @@ export const Hero = () => {
     });
 
     return () => {
-      clearInterval(rolInterval);
+      clearInterval("");
       tl.kill();
     };
   }, []);
@@ -165,8 +226,8 @@ export const Hero = () => {
               ref={capsuleRef}
               className="bg-apple-light-gray rounded-full px-6 py-3 mb-10 inline-block"
             >
-              <span className="font-inter text-gray-700 font-medium text-sm sm:text-base">
-                {/* {roles[currentRole]} */}
+              <span className="line-1 anim-typewriter text-gray-700 ">
+                {clothes[currentRole]}
               </span>
             </div>
 
