@@ -112,7 +112,7 @@ const Footer = () => {
 
               <button
                 onClick={scrollToTop}
-                className="bg-apple-blue text-white px-6 py-2 rounded-full font-inter font-medium hover:bg-blue-600 transition-colors duration-200"
+                className="bg-green-500 text-white px-6 py-2 rounded-full font-inter font-medium hover:bg-green-600 transition-colors duration-200"
               >
                 Back to Top
               </button>

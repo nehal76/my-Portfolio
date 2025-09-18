@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 const contact = () => {
   const sectionRef = useRef("");
   const formRef = useRef("");
+  const socialButtonRef = useRef("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +20,70 @@ const contact = () => {
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [errors, setErrors] = useState({ name: "", email: "", message: "" });
+
+  useEffect(() => {
+    const form = formRef.current?.querySelectorAll(".form-field");
+    const section = sectionRef.current?.children;
+    const buttons = socialButtonRef.current?.children;
+
+    if (form) {
+      gsap.fromTo(
+        form,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.5,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+
+    if (section) {
+      gsap.fromTo(
+        section,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.5,
+          delay: 0.8,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+
+    if (buttons) {
+      gsap.fromTo(
+        buttons,
+        { opacity: 0, scale: 0.8 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.5,
+          delay: 0.8,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+  });
 
   const icons = [
     {
@@ -70,39 +135,6 @@ const contact = () => {
     setIsFormSubmitted(false);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!valiDate()) return;
-
-  //   setIsFormSubmitted(true);
-
-  //   try {
-  //     // Send form data to Formspree
-  //     const response = await fetch("https://formspree.io/f/xldwvqyv", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       toast.success("Thanks for contacting me! I will get back to you soon!");
-  //       console.log("Form Submitted", formData);
-  //       setFormData({ name: "", email: "", message: "" });
-  //     } else {
-  //       toast.error("Failed to send message. Please try again.");
-  //     }
-  //   } catch (error) {
-  //     toast.error("An error occurred. Please try again.");
-  //     console.error("Formspree error:", error);
-  //   }
-
-  //   await new Promise((resolve) => setTimeout(resolve, 2000));
-  //   setIsFormSubmitted(false);
-  // };
-
   const inputHandle = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -134,6 +166,7 @@ const contact = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
             {/* Form Sction */}
             <div>
               <form
@@ -141,7 +174,7 @@ const contact = () => {
                 ref={formRef}
                 className=" space-y-6"
               >
-                <div className="form-field">
+                <div ref={formRef} className="form-field">
                   <label
                     htmlFor="name"
                     className="block text-sm font-bold text-gray-900  mb-2"
@@ -166,7 +199,7 @@ const contact = () => {
                   )}
                 </div>
 
-                <div className="form-group">
+                <div ref={formRef} className="form-field">
                   <label
                     htmlFor="email"
                     className=" block text-sm font-bold text-gray-900 mb-2"
@@ -183,7 +216,7 @@ const contact = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div ref={formRef} className="form-field">
                   <label
                     htmlFor="email"
                     className=" block text-sm font-bold text-gray-900 mb-2"
@@ -202,7 +235,7 @@ const contact = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div ref={formRef} className="form-field">
                   <Toaster />
                   <button
                     type="submit"
@@ -235,15 +268,14 @@ const contact = () => {
                   Feel free to reach out for project collaborations, technical
                   consultations, or networking within the tech industry.
                 </p>
-                <div className="bg-gray-100 rounded-2xl p-4 ">
-                  <div className="flex item-start gap-3">
+                <div className="bg-gray-100 rounded-2xl p-4">
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-6 h-6 text-blue-500 mt-1" />
                     <div>
-                      <Mail className="w-5 h-5 text-blue-500 mt-1 " />
-                      <p className="font-semibold text-gray-600">E-mail</p>
-
+                      <p className="font-medium text-gray-900">Email</p>
                       <a
-                        href="nehal.spn786@gmail.com"
-                        className="text-blue-800 hover:underline "
+                        href="mailto:shatakshirajput02@gmail.com"
+                        className="text-blue-500 hover:underline text-sm"
                       >
                         nehal.spn786@gmail.com
                       </a>
@@ -255,7 +287,7 @@ const contact = () => {
                 <h4 className="  text-gray-900 font-semibold mb-4">
                   Connect With Me
                 </h4>
-                <div className="flex gap-3 flex-wrap">
+                <div ref={socialButtonRef} className="flex gap-3 flex-wrap">
                   {icons.map((icon, index) => (
                     <a
                       key={index}

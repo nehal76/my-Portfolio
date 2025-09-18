@@ -1,26 +1,28 @@
-import React, { useRef, useEffect, useState } from "react";
-import Globe from "react-globe.gl";
+import React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Globe from 'react-globe.gl';
 
 const Globe3D = () => {
-  const globeEl = useRef('');
-  const containerRef = useRef('');
-  const [dimension, setDimensions] = useState({ width: 0, height: 0 });
+  const globeEl = useRef(null);
+  const containerRef = useRef(null);
+  const [dim, setDim] = useState({ w: 0, h: 0 });
 
-  const mark = [
+  const markers = [
     {
-      lat: 28.4595,
-      lng: 77.0266,
-      size: 0.5,
-      color: "red",
-      label: "Gurgaon",
-    },
+      lat: 28.6139,
+      lng: 77.2090,
+      size: 0.2,
+      color: 'lime',
+      label: 'New Delhi, India',
+    }
   ];
 
+  // Resize observer to make the globe responsive
   useEffect(() => {
-    const observer = new ResizeObserver((entries) => {
+    const observer = new ResizeObserver(entries => {
       for (let entry of entries) {
         if (entry.contentRect) {
-          setDimensions({
+          setDim({
             width: entry.contentRect.width,
             height: entry.contentRect.height,
           });
@@ -54,7 +56,7 @@ const Globe3D = () => {
 
     if (globeEl.current) {
       globeEl.current.pointOfView(
-        { lat: 28.6139, lng: 77.209, altitude: 1.8 },
+        { lat: 28.6139, lng: 77.2090, altitude: 1.8 },
         1500
       );
     }
@@ -62,36 +64,28 @@ const Globe3D = () => {
     return () => clearInterval(interval);
   }, []);
 
-  //   useEffect(() => {
-  //     if (globeEl.current) {
-  //       globeEl.current.pointOfView(
-  //         { lat: mark[0].lat, lng: mark[0].lng, altitude: 1.5 },
-  //         1000
-  //       );
-  //     }
-  //   }, []);
-
   return (
-    <>
-    {/* // <div ref={containerRef} className="w-full h-[500px]">
-    //   {dimension.width > 0 && dimension.height > 0 && (
-    //     <Globe
-    //       ref={globeEl}
-    //       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-    //       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-    //       backgroundColor="rgba(0,0,0,0)"
-    //       width={dimension.width}
-    //       height={dimension.height}
-    //       pointsData={mark}
-    //       pointAltitude="size"
-    //       pointColor={() => "rgba(0,255,0,0.8)"}
-    //       pointLabel="label"
-    //       pointRadius={0.6}
-    //       onPointClick={(point) => console.log(point)}
-    //     />
-    //   )}
-    // </div> */}
-    </>
+    <div
+      ref={containerRef}
+      className="relative w-full h-32 sm:h-40 lg:h-56 xl:h-64"
+    >
+      {dim.w > 0 && dim.h > 0 && (
+        <Globe
+          ref={globeEl}
+          globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+          bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+          backgroundColor="rgba(0,0,0,0)"
+          width={dim.w}
+          height={dim.h}
+          pointsData={markers}
+          pointAltitude="size"
+          pointColor={() => 'rgba(0,255,0,0.8)'}
+          pointLabel="label"
+          pointRadius={0.6}
+          onPointClick={(point) => alert(point)}
+        />
+      )}
+    </div>
   );
 };
 

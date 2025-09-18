@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useRef, useState } from "react";
+import React, { Children, useEffect, useMemo, useRef, useState } from "react";
 import Lottie from "lottie-react";
 import animation from "../Lotti/developer skills.json";
 import { PiPantsLight } from "react-icons/pi";
@@ -25,64 +25,83 @@ export const Hero = () => {
   const capsuleRef = useRef(null);
   const [currentRole, setCurrentRole] = useState(0);
 
-  const clothes = ["Jeans", "T-shirts", "Shirts", "Night Suit"];
+  // const clothes = ["DBMS", "T-shirts", "Shirts", "Night Suit"];
 
-  const typeText = (text, onComplete) => {
-    if(!capsuleRef.current) return;
-      const tl = gsap.timeline();
-      capsuleRef.current.textContent = "";
+  const words = useMemo(
+    () => [
+      "Real-time App Builder",
+      "AI + Web Developer",
+      "DBMS Enthusiast",
+      "MERN Stack Developer",
+      "Open Source Contributor",
+    ],
+    []
+  );
 
-      text.split("").forEach((char) => {
+  const typeSpeed = 0.05; // seconds per typed char
+  const deleteSpeed = 0.03; // seconds per deleted char
+  const holdDelay = 1.0; // pause after typing a word
+  const afterDeleteDelay = 0.5;
+
+  // Typewriter function Logic
+
+  useEffect(() => {
+    if (!capsuleRef.current) return;
+
+    // Create a GSAP context bound to this ref; it will auto‑kill on cleanup.
+    const ctx = gsap.context(() => {
+      const el = capsuleRef.current;
+      const text = words[currentRole];
+
+      // reset content before building timeline
+      el.textContent = "";
+
+      const tl = gsap.timeline({ defaults: { ease: "none" } });
+
+      // Type characters
+      for (const ch of text) {
         tl.to(
           {},
           {
-            duration: 0.05,
+            duration: typeSpeed,
             onComplete: () => {
-              if(capsuleRef.current){
-                capsuleRef.current.textContent += char;
-              }
-            },
-          }
-        );
-      });
-
-      tl.to({}, { duration: 1, onComplete });
-    };
-
-    const deleteText = (onComplete) => {
-       if(!capsuleRef.current) return;
-      const tl = gsap.timeline();
-      const length = capsuleRef.current.textContent.length;
-
-      for (let i = length; i > 0; i--) {
-        tl.to(
-          {},
-          {
-            duration: 0.03,
-            onComplete: () => {
-              capsuleRef.current.textContent =
-                capsuleRef.current.textContent.slice(0, -1);
+              if (el) el.textContent += ch;
             },
           }
         );
       }
 
-      tl.to({}, { duration: 0.5, onComplete });
-    };
+      // Hold fully typed text
+      tl.to({}, { duration: holdDelay });
 
-    const animateTypewriter = () => {
-      typeText(clothes[currentRole], () => {
-        deleteText(() => {
-          setCurrentRole((prev) => (prev + 1) % clothes.length);
-          animateTypewriter();
-        });
-      });
-    };
+      // Delete characters
+      for (let i = 0; i < text.length; i++) {
+        tl.to(
+          {},
+          {
+            duration: deleteSpeed,
+            onComplete: () => {
+              if (el) el.textContent = el.textContent.slice(0, -1);
+            },
+          }
+        );
+      }
 
-    useEffect(()=>{
-      animateTypewriter();
-    },[])
+      // Hold a bit, then advance state to trigger the next cycle
+      tl.to(
+        {},
+        {
+          duration: afterDeleteDelay,
+          onComplete: () => {
+            setCurrentRole((i) => (i + 1) % words.length);
+          },
+        }
+      );
+    }, capsuleRef);
 
+    // Cleanup kills any running tweens/timelines—prevents duplicate letters in Strict Mode
+    return () => ctx.revert();
+  }, [currentRole, words, typeSpeed, deleteSpeed, holdDelay, afterDeleteDelay]);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
@@ -108,9 +127,6 @@ export const Hero = () => {
         "-=0.8"
       );
 
-
-
-    
     // Role change interval
 
     // const rolInterval = setInterval(() => {
@@ -224,14 +240,14 @@ export const Hero = () => {
 
             <div
               ref={capsuleRef}
-              className="bg-apple-light-gray rounded-full px-6 py-3 mb-10 inline-block"
+              className=" min-w-3 min-h-12 align-middle rounded-full px-6 py-3 mb-5 inline-block font-mono"
             >
-              <span className="line-1 anim-typewriter text-gray-700 ">
-                {clothes[currentRole]}
+              <span className="text-xl whitespace-pre-wrap  text-gray-700 ">
+                {words[currentRole]}
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 relative z-50">
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 relative z-1">
               <button
                 type="button"
                 onClick={() => scrollTo("projects")}
@@ -260,28 +276,26 @@ export const Hero = () => {
               <Lottie animationData={animation} loop />
             </div>
           </div>
-          {/* right side */}
 
-          <div className="order-3 lg:order-3 relative w-64 h-64 flex items-center justify-center">
+          {/* right side */}
+          <div
+            className="order-3 lg:order-3 relative mx-auto w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 flex items-center justify-center scale-75 sm:md:scale-90 lg:scale-90 z-0 mb-8"
+          >
             {/* Sun */}
             <div
               ref={blobRef}
-              className="w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-500 rounded-full shadow-lg z-10"
+              className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-br from-yellow-300 to-orange-500 rounded-full shadow-lg"
             />
 
             {/* Orbit Group */}
             <div
               ref={orbitGroupRef}
-              className="absolute top-1/2 left-1/2  "
-              // style={{
-              //   width: "100%",
-              //   height: "100%",
-              //   transform: "translate(-50%, -50%)",
-              // }}
+              className="
+      absolute top-1/2 left-1/2-translate-x-1/2 -translate-y-1/2 w-full h-full origin-center pointer-events-none "
             >
               {techIcons.map((tech, index) => {
                 const angle = (360 / techIcons.length) * index;
-                const radius = 70 + index * 20;
+                const radius = 70 + index * 20; // keep as-is since we're scaling via CSS
 
                 return (
                   <div key={index}>
@@ -298,7 +312,10 @@ export const Hero = () => {
 
                     {/* Orbiting Icon */}
                     <div
-                      className="absolute w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md"
+                      className="
+              absolute bg-white rounded-full flex items-center justify-center shadow-md
+              w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9
+            "
                       style={{
                         top: "50%",
                         left: "50%",

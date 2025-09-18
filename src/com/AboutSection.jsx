@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Footer = () => {
   const cardRef = useRef();
   const sectionRef = useRef();
-  const [projectCount, setProjectCount] = useState(5);
+  const [projectCount, setProjectCount] = useState(2);
 
   useEffect(()=>{
 const card=cardRef.current?.children;
@@ -36,7 +36,7 @@ ScrollTrigger.create({
   trigger: sectionRef.current,
   start: "top 80%",
   onEnter: ()=>{
-    gsap.to({value: 0}, {value: 5, duration: 2, onUpdate: function(){
+    gsap.to({value: 0}, {value: 2, duration: 2, onUpdate: function(){
       setProjectCount(Math.ceil(this.targets()[0]. value));
     } })
   }
@@ -87,7 +87,7 @@ ScrollTrigger.create({
                 </div>
                 <div className="text-center">
                   <p className="font-outfit font-bold text-2xl sm:text-3xl text-green-600">
-                    1.5+
+                    1.9+
                   </p>
                   <p className="text-sm text-gray-500">Years Experience</p>
                 </div>
@@ -115,12 +115,12 @@ ScrollTrigger.create({
               <div className="flex items-center justify-center w-10 h-10 sm:w-16 sm:h-16 bg-blue-500/10 rounded-2xl mb-6">
                 <GraduationCap className="w-7 h-7 sm:w-8 sm:h-8 text-blue-500 "></GraduationCap>
               </div>
-              <h3 className="lg:text-2xl sm:text-lg font-bold text-gray-900">
+              <h3 className="font-outfit font-bold text-lg sm:text-xl text-gray-900 mb-4">
                 Education
               </h3>
-              <div className="space-y-3">
-                <div>
-                  <p className="font-inter font-semibold text-gray-900">
+              <div className="space-y-3 ">
+                <div className="">
+                  <p className="font-inter font-semibold text-gray-900 ">
                     B.Tech CSE
                   </p>
 
@@ -146,7 +146,7 @@ ScrollTrigger.create({
                 Location
               </h3>
               <div className="relative w-full h-20  sm:h-25 lg:h-30">
-                <Globe3D></Globe3D>
+                <Globe3D/>
               </div>
               <p className="font-inter font-semibold text-gray-400">
                 📍 Gurgaon, India
