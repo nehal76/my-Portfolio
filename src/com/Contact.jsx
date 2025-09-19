@@ -23,8 +23,7 @@ const contact = () => {
 
   useEffect(() => {
     const form = formRef.current?.querySelectorAll(".form-field");
-    const section = sectionRef.current?.children;
-    const buttons = socialButtonRef.current?.children;
+    const button = sectionRef.current?.querySelectorAll(".social-button");
 
     if (form) {
       gsap.fromTo(
@@ -34,7 +33,7 @@ const contact = () => {
           opacity: 1,
           y: 0,
           duration: 0.6,
-          stagger: 0.5,
+          stagger: 0.2,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%",
@@ -44,35 +43,15 @@ const contact = () => {
       );
     }
 
-    if (section) {
+    if (button) {
       gsap.fromTo(
-        section,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.5,
-          delay: 0.8,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
-
-    if (buttons) {
-      gsap.fromTo(
-        buttons,
+        button,
         { opacity: 0, scale: 0.8 },
         {
           opacity: 1,
           scale: 1,
           duration: 0.5,
-          stagger: 0.5,
+          stagger: 0.1,
           delay: 0.8,
           ease: "back.out(1.7)",
           scrollTrigger: {
@@ -83,7 +62,10 @@ const contact = () => {
         }
       );
     }
-  });
+    return () =>{
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   const icons = [
     {
@@ -160,13 +142,12 @@ const contact = () => {
               Let's Connect
             </h2>
             <p className="text-gray-700 font-inter text-sm mt-3 sm:text-lg lg:">
-              {" "}
+              
               Open to tech discussions, collaborations, and consulting
               opportunities.
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
             {/* Form Sction */}
             <div>
               <form
@@ -174,12 +155,11 @@ const contact = () => {
                 ref={formRef}
                 className=" space-y-6"
               >
-                <div ref={formRef} className="form-field">
+                <div className="form-field">
                   <label
                     htmlFor="name"
                     className="block text-sm font-bold text-gray-900  mb-2"
                   >
-                    {" "}
                     Full Name
                   </label>
 
@@ -199,7 +179,7 @@ const contact = () => {
                   )}
                 </div>
 
-                <div ref={formRef} className="form-field">
+                <div className="form-field">
                   <label
                     htmlFor="email"
                     className=" block text-sm font-bold text-gray-900 mb-2"
@@ -216,7 +196,7 @@ const contact = () => {
                   />
                 </div>
 
-                <div ref={formRef} className="form-field">
+                <div className="form-field">
                   <label
                     htmlFor="email"
                     className=" block text-sm font-bold text-gray-900 mb-2"
@@ -235,7 +215,7 @@ const contact = () => {
                   />
                 </div>
 
-                <div ref={formRef} className="form-field">
+                <div className="form-field">
                   <Toaster />
                   <button
                     type="submit"
@@ -287,7 +267,7 @@ const contact = () => {
                 <h4 className="  text-gray-900 font-semibold mb-4">
                   Connect With Me
                 </h4>
-                <div ref={socialButtonRef} className="flex gap-3 flex-wrap">
+                <div className="flex gap-3 flex-wrap">
                   {icons.map((icon, index) => (
                     <a
                       key={index}
