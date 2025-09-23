@@ -10,9 +10,9 @@ export const ProjectShowCase = () => {
 
   const projects = [
     {
-      title: "Charted Accountent",
+      title: "CA Services Platform",
       description:
-        "Website for a Chartered Accountant showcasing services and expertise",
+        "A modern web platform designed for Chartered Accountants, offering streamlined financial management, client collaboration, and professional service showcases. Built with a robust tech stack for reliability and user-friendly experience.",
       image: "/CA Image.jfif",
       technologies: ["React.js", "CSS", "Boostrap", "Springboot"],
 
@@ -204,7 +204,7 @@ export const ProjectShowCase = () => {
                   {project.technologies.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="bg-apple-light-gray text-gray-700 px-3 py-1 rounded-full text-sm font-inter"
+                      className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-inter"
                     >
                       {tech}
                     </span>
@@ -217,7 +217,7 @@ export const ProjectShowCase = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full font-inter font-medium hover:bg-gray-800 transition-colors duration-200"
+                    className="flex items-center gap-2 bg-gray-700 text-white px-6 py-3 rounded-full font-inter font-medium hover:bg-gray-900 transition-colors duration-200"
                   >
                     <Github className="w-4 h-4" />
                     GitHub
@@ -226,7 +226,7 @@ export const ProjectShowCase = () => {
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-apple-blue text-white px-6 py-3 rounded-full font-inter font-medium hover:bg-blue-600 transition-colors duration-200"
+                    className="flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-full font-inter font-medium hover:bg-green-600 transition-colors duration-200"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
