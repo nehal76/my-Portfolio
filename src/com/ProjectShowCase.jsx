@@ -13,7 +13,7 @@ export const ProjectShowCase = () => {
       title: "CA Services Platform",
       description:
         "A modern web platform designed for Chartered Accountants, offering streamlined financial management, client collaboration, and professional service showcases. Built with a robust tech stack for reliability and user-friendly experience.",
-      image: "/CA Image.jfif",
+      image: "/CA Image.png",
       technologies: ["React.js", "CSS", "Boostrap", "Springboot"],
 
       highlights: [

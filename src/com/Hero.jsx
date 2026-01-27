@@ -32,7 +32,7 @@ export const Hero = () => {
       "Real-time App Builder",
       "AI + Web Developer",
       "DBMS Enthusiast",
-      "MERN Stack Developer",
+      "FULL Stack Developer",
       "Open Source Contributor",
     ],
     []
