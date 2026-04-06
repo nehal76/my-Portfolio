@@ -87,7 +87,7 @@ ScrollTrigger.create({
                 </div>
                 <div className="text-center">
                   <p className="font-outfit font-bold text-2xl sm:text-3xl text-green-600">
-                    1.9+
+                    2.5+
                   </p>
                   <p className="text-sm text-gray-500">Years Experience</p>
                 </div>
@@ -124,7 +124,7 @@ ScrollTrigger.create({
                     B.Tech CSE
                   </p>
 
-                  <p className="font-inter text-gray-600">NIET • 79.9% </p>
+                  <p className="font-inter text-gray-600">NIET • 75.9% </p>
                 </div>
                 <div>
                   <p className="font-inter text-sm text-gray-600">

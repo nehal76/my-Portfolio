@@ -93,7 +93,7 @@ export const Hero = () => {
         {
           duration: afterDeleteDelay,
           onComplete: () => {
-            setCurrentRole((i) => (i + 1) % words.length);
+            setCurrentRole((i) => (i + 1) % words.length); //
           },
         }
       );
@@ -199,15 +199,15 @@ export const Hero = () => {
       delay: 1.0,
     },
     {
-      icon: <SiNodedotjs className="text-red-500 text-xl sm: text-2xl" />,
+      icon: <SiNodedotjs className="text-red-500 text-xl sm:text-2xl" />,
       delay: 1.5,
     },
     {
-      icon: <SiTypescript className="text-black-500 text-xl sm: text-2xl" />,
+      icon: <SiTypescript className="text-blue-500 text-xl sm:text-2xl" />,
       delay: 1.5,
     },
     {
-      icon: <SiJavascript className="text-red-500 text-xl sm: text-2xl" />,
+      icon: <SiJavascript className="text-red-500 text-xl sm:text-2xl" />,
       delay: 1.5,
     },
   ];
