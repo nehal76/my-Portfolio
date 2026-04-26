@@ -124,7 +124,7 @@ ScrollTrigger.create({
                     B.Tech CSE
                   </p>
 
-                  <p className="font-inter text-gray-600">NIET • 75.9% </p>
+                  <p className="font-inter text-gray-600">NIET • 7.5/10 CGPA  </p>
                 </div>
                 <div>
                   <p className="font-inter text-sm text-gray-600">

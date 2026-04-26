@@ -14,9 +14,13 @@ import {
   SiMysql,
   SiGit,
   SiTypescript,
+  SiDocker ,
+  SiJenkins,
+  SiLinux
 } from "react-icons/si";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { IoInfiniteSharp } from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,16 +36,8 @@ export const TechStack = () => {
       icon: <SiReact className="text-sky-500" />,
       category: "Frontend",
     },
-    {
-      name: "TypeScript",
-      icon: <SiTailwindcss className="text-blue-200" />,
-      category: "Backend",
-    },
-    {
-      name: "MongoDB",
-      icon: <SiMongodb className="text-green-500" />,
-      category: "Database",
-    },
+    
+    
     {
       name: "TypeScript",
       icon: <SiTypescript className="text-gray-800" />,
@@ -52,13 +48,9 @@ export const TechStack = () => {
       icon: <SiJavascript className="text-yellow-500" />,
       category: "Language",
     },
+    
     {
-      name: "Python",
-      icon: <SiPython className="text-blue-500" />,
-      category: "Language",
-    },
-    {
-      name: "TailwindCSS",
+      name: "Tailwind CSS",
       icon: <SiTailwindcss className="text-cyan-400" />,
       category: "Styling",
     },
@@ -78,6 +70,21 @@ export const TechStack = () => {
       name: "Git",
       icon: <SiGit className="text-red-500" />,
       category: "Tools",
+    },
+    {
+      name: "CI/CD",
+      icon: <IoInfiniteSharp  className="text-green-500" />,
+      category: "Continuous Integration and Continuous Delivery/Deployment",
+    },
+    {
+      name: "Jenkins",
+      icon: <SiJenkins  className="text-gray-500" />,
+      category: "CI/CD",
+    },
+    {
+      name: "Docker",
+      icon: <SiDocker  className="text-blue-500" />,
+      category: "containerization platform",
     },
   ];
 
