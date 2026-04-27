@@ -16,7 +16,10 @@ import {
   SiTypescript,
   SiDocker ,
   SiJenkins,
-  SiLinux
+  SiLinux,
+  SiHtml5,
+  
+  SiCsswizardry,
 } from "react-icons/si";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -52,6 +55,16 @@ export const TechStack = () => {
     {
       name: "Tailwind CSS",
       icon: <SiTailwindcss className="text-cyan-400" />,
+      category: "Styling",
+    },
+    {
+      name: "HTML5",
+      icon: <SiHtml5 className="text-orange-500" />,
+      category: "Markup",
+    },
+    {
+      name: "CSS3",
+      icon: <SiCsswizardry className="text-blue-500" />,
       category: "Styling",
     },
     {
